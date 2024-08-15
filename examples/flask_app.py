@@ -26,7 +26,7 @@ from kiteconnect import KiteConnect
 logging.basicConfig(level=logging.DEBUG)
 
 # Base settings
-PORT = 5010
+PORT = 5051
 HOST = "127.0.0.1"
 
 
@@ -35,8 +35,8 @@ def serializer(obj): return isinstance(obj, (date, datetime, Decimal)) and str(o
 
 # Kite Connect App settings. Go to https://developers.kite.trade/apps/
 # to create an app if you don't have one.
-kite_api_key = "kite_api_key"
-kite_api_secret = "kite_api_secret"
+kite_api_key = "f0khsqq8bd1dy5m7"
+kite_api_secret = "ng836t0hklmptq9muo3esnhjjeh3akzu"
 
 # Create a redirect url
 redirect_url = "http://{host}:{port}/login".format(host=HOST, port=PORT)
@@ -73,6 +73,8 @@ def get_kite_client():
     kite = KiteConnect(api_key=kite_api_key)
     if "access_token" in session:
         kite.set_access_token(session["access_token"])
+    else:
+        kite.set_access_token(os.getenv("KITE_ACCESS_TOKEN"))
     return kite
 
 

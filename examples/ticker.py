@@ -9,12 +9,14 @@
 ###############################################################################
 
 import logging
+import os
+
 from kiteconnect import KiteTicker
 
 logging.basicConfig(level=logging.DEBUG)
 
 # Initialise
-kws = KiteTicker("your_api_key", "your_access_token")
+kws = KiteTicker(os.getenv('KITE_API_KEY'), os.getenv("KITE_ACCESS_TOKEN"))
 
 def on_ticks(ws, ticks):  # noqa
     # Callback to receive ticks.

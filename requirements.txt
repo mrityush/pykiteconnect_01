@@ -1,0 +1,15 @@
+pytest>=4.6.11
+responses>=0.12.1
+pytest-cov>=2.10.1
+flake8>=3.8.4, <= 4.0.1
+mock>=3.0.5
+urllib3<2.0
+six~=1.16.0
+autobahn~=20.12.3
+requests~=2.32.3
+Flask~=3.0.3
+setuptools~=68.2.0
+Twisted~=24.3.0
+python-dateutil~=2.9.0.post0
+python-dotenv~=1.0.0
+kafka-python~=2.0.2

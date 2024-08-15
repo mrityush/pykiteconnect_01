@@ -10,7 +10,7 @@
 # the main thread will be your web server and you can access WebSocket object
 # in your main thread while running KiteTicker in separate thread.
 ###############################################################################
-
+import os
 import time
 import logging
 from kiteconnect import KiteTicker
@@ -18,7 +18,7 @@ from kiteconnect import KiteTicker
 logging.basicConfig(level=logging.DEBUG)
 
 # Initialise.
-kws = KiteTicker("your_api_key", "your_access_token")
+kws = KiteTicker(os.getenv('KITE_API_KEY'), os.getenv("KITE_ACCESS_TOKEN"))
 
 # RELIANCE BSE
 tokens = [738561]
@@ -28,6 +28,7 @@ tokens = [738561]
 def on_ticks(ws, ticks):
     if len(ticks) > 0:
         logging.info("Current mode: {}".format(ticks[0]["mode"]))
+        logging.info("Ticks: {}".format(ticks))
 
 
 # Callback for successful connection.
