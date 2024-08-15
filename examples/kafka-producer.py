@@ -13,8 +13,8 @@ topic = 'stock-data-topic'
 # Example data to send
 data = {
     'symbol': 'AAPL',
-    'price': 150.00,
-    'timestamp': '2023-10-01T12:00:00Z'
+    'price': 651.00,
+    'timestamp': '2024-10-02T12:00:00Z'
 }
 
 # Send data to Kafka topic
