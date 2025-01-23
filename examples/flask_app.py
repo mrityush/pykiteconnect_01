@@ -21,6 +21,8 @@ from datetime import date, datetime
 from decimal import Decimal
 
 from flask import Flask, request, jsonify, session
+from flask.cli import load_dotenv
+
 from kiteconnect import KiteConnect
 
 logging.basicConfig(level=logging.DEBUG)
@@ -28,15 +30,15 @@ logging.basicConfig(level=logging.DEBUG)
 # Base settings
 PORT = 5051
 HOST = "127.0.0.1"
-
+load_dotenv()
 
 def serializer(obj): return isinstance(obj, (date, datetime, Decimal)) and str(obj)  # noqa
 
 
 # Kite Connect App settings. Go to https://developers.kite.trade/apps/
 # to create an app if you don't have one.
-kite_api_key = "f0khsqq8bd1dy5m7"
-kite_api_secret = "ng836t0hklmptq9muo3esnhjjeh3akzu"
+kite_api_key = os.getenv("KITE_API_KEY")
+kite_api_secret = os.getenv("KITE_API_SECRET")
 
 # Create a redirect url
 redirect_url = "http://{host}:{port}/login".format(host=HOST, port=PORT)
