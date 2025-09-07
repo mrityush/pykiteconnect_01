@@ -8,7 +8,7 @@
     :license: see LICENSE for details.
 """
 from six import StringIO, PY2
-from six.moves.urllib.parse import urljoin
+from urllib.parse import urljoin
 import csv
 import json
 import dateutil.parser
