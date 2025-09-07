@@ -6,7 +6,7 @@ responses~=0.25.8
 requests~=2.32.5
 Flask~=3.1.2
 setuptools~=80.3.1
-python-dateutil~=2.6.1
+python-dateutil==2.6.1
 scikit-learn~=1.6.1
 twisted~=25.5.0
 pyOpenSSL~=25.1.0

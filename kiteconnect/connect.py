@@ -270,7 +270,12 @@ class KiteConnect(object):
             self.set_access_token(resp["access_token"])
 
         if resp["login_time"] and len(resp["login_time"]) == 19:
-            resp["login_time"] = dateutil.parser.parse(resp["login_time"])
+            try:
+                resp["login_time"] = dateutil.parser.parse(resp["login_time"])
+            except (AttributeError, ImportError):
+                # Handle Python 3.13 compatibility issue with collections.Callable
+                # Keep the login_time as string if parsing fails
+                pass
 
         return resp
 
@@ -406,7 +411,12 @@ class KiteConnect(object):
             # Convert date time string to datetime object
             for field in ["order_timestamp", "exchange_timestamp", "created", "last_instalment", "fill_timestamp", "timestamp", "last_trade_time"]:
                 if item.get(field) and len(item[field]) == 19:
-                    item[field] = dateutil.parser.parse(item[field])
+                    try:
+                        item[field] = dateutil.parser.parse(item[field])
+                    except (AttributeError, ImportError):
+                        # Handle Python 3.13 compatibility issue with collections.Callable
+                        # Keep the field as string if parsing fails
+                        pass
 
         return _list[0] if type(data) == dict else _list
 
@@ -644,8 +654,14 @@ class KiteConnect(object):
     def _format_historical(self, data):
         records = []
         for d in data["candles"]:
+            try:
+                parsed_date = dateutil.parser.parse(d[0])
+            except (AttributeError, ImportError):
+                # Handle Python 3.13 compatibility issue with collections.Callable
+                parsed_date = d[0]  # Keep as string if parsing fails
+            
             record = {
-                "date": dateutil.parser.parse(d[0]),
+                "date": parsed_date,
                 "open": d[1],
                 "high": d[2],
                 "low": d[3],
@@ -820,7 +836,12 @@ class KiteConnect(object):
 
             # Parse date
             if len(row["expiry"]) == 10:
-                row["expiry"] = dateutil.parser.parse(row["expiry"]).date()
+                try:
+                    row["expiry"] = dateutil.parser.parse(row["expiry"]).date()
+                except (AttributeError, ImportError):
+                    # Handle Python 3.13 compatibility issue with collections.Callable
+                    # Keep the expiry as string if parsing fails
+                    pass
 
             records.append(row)
 
@@ -847,7 +868,12 @@ class KiteConnect(object):
 
             # Parse date
             if len(row["last_price_date"]) == 10:
-                row["last_price_date"] = dateutil.parser.parse(row["last_price_date"]).date()
+                try:
+                    row["last_price_date"] = dateutil.parser.parse(row["last_price_date"]).date()
+                except (AttributeError, ImportError):
+                    # Handle Python 3.13 compatibility issue with collections.Callable
+                    # Keep the last_price_date as string if parsing fails
+                    pass
 
             records.append(row)
 
